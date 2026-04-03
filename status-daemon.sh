@@ -1,7 +1,7 @@
 #!/bin/zsh
 set -euo pipefail
 
-PID_FILE="/tmp/codex-lsp-mcp.pid"
+PID_FILE="/tmp/codex-gopls-mcp.pid"
 PORT="${MCP_PORT:-3245}"
 HOST="${MCP_HOST:-127.0.0.1}"
 

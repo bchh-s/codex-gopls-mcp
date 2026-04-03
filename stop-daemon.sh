@@ -1,7 +1,7 @@
 #!/bin/zsh
 set -euo pipefail
 
-PID_FILE="/tmp/codex-lsp-mcp.pid"
+PID_FILE="/tmp/codex-gopls-mcp.pid"
 
 if [[ ! -f "$PID_FILE" ]]; then
   echo "not running"

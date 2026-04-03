@@ -301,7 +301,7 @@ function resolveGoplsCommand(homeDir, goVersion) {
 function buildScopedTempDir(rootDir, label) {
   const hash = crypto.createHash("sha1").update(rootDir).digest("hex").slice(0, 12);
   const tempRoot = process.env.TMPDIR || "/tmp";
-  return path.join(tempRoot, "codex-lsp-mcp", hash, label);
+  return path.join(tempRoot, "codex-gopls-mcp", hash, label);
 }
 
 function getServerConfig(language, rootDir = "") {
@@ -805,7 +805,7 @@ class LspClient {
     await this.rpc.sendRequest("initialize", {
       processId: process.pid,
       clientInfo: {
-        name: "codex-lsp-mcp",
+        name: "codex-gopls-mcp",
         version: "0.1.0",
       },
       rootUri,
@@ -1251,7 +1251,7 @@ async function handleMcpRequest(message) {
         tools: {},
       },
       serverInfo: {
-        name: "codex-lsp-mcp",
+        name: "codex-gopls-mcp",
         version: "0.1.0",
       },
     };
@@ -1341,7 +1341,7 @@ function runHttpServer() {
     try {
       if (req.method === "GET" && (req.url === "/health" || req.url === "/")) {
         res.writeHead(200, { "content-type": "application/json" });
-        res.end(JSON.stringify({ ok: true, name: "codex-lsp-mcp" }));
+        res.end(JSON.stringify({ ok: true, name: "codex-gopls-mcp" }));
         return;
       }
 
@@ -1383,7 +1383,7 @@ function runHttpServer() {
   });
 
   server.listen(port, host, () => {
-    console.error(`codex-lsp-mcp listening on http://${host}:${port}/mcp`);
+    console.error(`codex-gopls-mcp listening on http://${host}:${port}/mcp`);
   });
 }
 

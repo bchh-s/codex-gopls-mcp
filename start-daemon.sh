@@ -2,8 +2,8 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "$0")" && pwd)"
-PID_FILE="/tmp/codex-lsp-mcp.pid"
-LOG_FILE="/tmp/codex-lsp-mcp.log"
+PID_FILE="/tmp/codex-gopls-mcp.pid"
+LOG_FILE="/tmp/codex-gopls-mcp.log"
 PORT="${MCP_PORT:-3245}"
 HOST="${MCP_HOST:-127.0.0.1}"
 
