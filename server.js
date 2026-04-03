@@ -277,7 +277,11 @@ function resolveGoPath(homeDir, goVersion) {
     return configuredGoPath;
   }
 
-  return path.join(homeDir, "go");
+  if (homeDir) {
+    return path.join(homeDir, "go");
+  }
+
+  return normalizePath("go");
 }
 
 function resolveGoplsCommand(homeDir, goVersion) {
