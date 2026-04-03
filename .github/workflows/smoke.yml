@@ -8,6 +8,8 @@ on:
 
 jobs:
   smoke:
+    env:
+      GOPLS_VERSION: v0.21.1
     strategy:
       fail-fast: false
       matrix:
@@ -34,7 +36,7 @@ jobs:
       - name: Install gopls
         shell: bash
         run: |
-          go install golang.org/x/tools/gopls@latest
+          go install golang.org/x/tools/gopls@${GOPLS_VERSION}
           echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
 
       - name: Check server syntax

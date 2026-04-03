@@ -11,6 +11,7 @@ const { promisify } = require("util");
 
 const MCP_FALLBACK_PROTOCOL_VERSION = "2024-11-05";
 const JSON_RPC_VERSION = "2.0";
+const GO_POSITION_PATH_PATTERN = "((?:[A-Za-z]:)?[^:]+)";
 
 const clients = new Map();
 let mcpInitialized = false;
@@ -410,7 +411,7 @@ function parseGoReferences(raw) {
     .split(/\r?\n/)
     .filter(Boolean)
     .map((line) => {
-      const match = line.match(/^(.*):(\d+):(\d+)-(\d+)$/);
+      const match = line.match(new RegExp(`^${GO_POSITION_PATH_PATTERN}:(\\d+):(\\d+)-(\\d+)$`));
       if (!match) {
         return null;
       }
@@ -467,7 +468,7 @@ function parseGoWorkspaceSymbols(raw) {
     .split(/\r?\n/)
     .filter(Boolean)
     .map((line) => {
-      const match = line.match(/^(.*):(\d+):(\d+)-(\d+)\s+(\S+)\s+(\w+)$/);
+      const match = line.match(new RegExp(`^${GO_POSITION_PATH_PATTERN}:(\\d+):(\\d+)-(\\d+)\\s+(\\S+)\\s+(\\w+)$`));
       if (!match) {
         return null;
       }
@@ -501,7 +502,7 @@ function parseGoDiagnostics(raw, filePath) {
     .split(/\r?\n/)
     .filter(Boolean)
     .map((line) => {
-      const match = line.match(/^(.*):(\d+):(\d+):\s*(.*)$/);
+      const match = line.match(new RegExp(`^${GO_POSITION_PATH_PATTERN}:(\\d+):(\\d+):\\s*(.*)$`));
       if (!match) {
         return null;
       }
