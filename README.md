@@ -2,7 +2,7 @@
 
 MCP server for Codex with `gopls`-backed Go code navigation.
 
-This repository is aimed at a macOS workstation where Go, `gopls`, Node.js, and optionally GVM are already installed. The Go path is the primary target. Solidity support is still present, but it is secondary.
+This repository started from a macOS workstation setup where Go, `gopls`, Node.js, and optionally GVM are already installed. The Go path is the primary target. Solidity support is still present, but it is secondary.
 
 ## What It Exposes
 
@@ -24,6 +24,19 @@ This repository is aimed at a macOS workstation where Go, `gopls`, Node.js, and 
 - GVM is optional, but this repo is friendliest to GVM-based Go setups
 
 This repository does not provision the runtime for you. It expects the machine to already have the required tooling.
+
+## Support Status
+
+Current support should be read conservatively:
+
+- macOS: primary development target
+- Linux: expected to work for the Node server path, with validation driven by CI
+- Windows native: not yet a first-class supported environment
+- WSL: more realistic than native Windows today because the helper scripts are Unix-oriented
+
+Important limitation:
+
+- Docker on macOS or Linux is not a real substitute for native Windows validation. For Windows-specific behavior, use a real Windows VM or a Windows CI runner.
 
 ## Install Prerequisites
 
@@ -165,6 +178,16 @@ If you want it, install `nomicfoundation-solidity-language-server` on `PATH` or 
 - The defaults in this repository reflect one macOS workstation setup. If your machine differs, prefer overriding environment variables instead of patching the server.
 - If a required Go version is not installed locally, results depend on the fallback environment that `gopls` can reach on that machine.
 
+## Contributing
+
+If you want to send patches, read [CONTRIBUTING.md](./CONTRIBUTING.md) first.
+
+In particular:
+
+- open an issue first for platform support work, non-trivial behavior changes, or compatibility claims
+- include exact OS, shell, Go, `gopls`, and Node.js versions in bug reports
+- treat Windows support as tracked work until it is validated in CI and on a real Windows environment
+
 ## Bundled Skill
 
 This repository includes a Codex skill for Go and Solidity code navigation:
@@ -185,3 +208,5 @@ $HOME/.codex/skills/use-lsp-when-coding/SKILL.md
 - `gopls` site: https://go.dev/gopls/
 - Node.js downloads: https://nodejs.org/en/download
 - GVM upstream README: https://github.com/moovweb/gvm
+- GitHub Actions docs: https://docs.github.com/github/automating-your-workflow-with-github-actions
+- Docker docs: https://docs.docker.com/

@@ -1,0 +1,42 @@
+name: Feature request
+description: Propose a new feature, support target, or workflow change
+title: "[feature] "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What problem are you trying to solve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: Describe the change you want.
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Go support
+        - Windows support
+        - Linux support
+        - macOS support
+        - MCP protocol behavior
+        - Docs
+        - CI
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validation plan
+      description: How should this be tested?
+    validations:
+      required: true
