@@ -3,8 +3,10 @@
 const crypto = require("crypto");
 const fs = require("fs");
 const http = require("http");
+const os = require("os");
 const path = require("path");
 const { spawn, execFile } = require("child_process");
+const { fileURLToPath, pathToFileURL } = require("url");
 const { promisify } = require("util");
 
 const MCP_FALLBACK_PROTOCOL_VERSION = "2024-11-05";
@@ -20,16 +22,11 @@ function normalizePath(filePath) {
 }
 
 function filePathToUri(filePath) {
-  const resolved = normalizePath(filePath);
-  const normalized = resolved.split(path.sep).join("/");
-  return `file://${encodeURI(normalized)}`;
+  return pathToFileURL(normalizePath(filePath)).href;
 }
 
 function uriToFilePath(uri) {
-  if (!uri.startsWith("file://")) {
-    throw new Error(`Unsupported URI: ${uri}`);
-  }
-  return decodeURI(uri.slice("file://".length));
+  return fileURLToPath(uri);
 }
 
 function statExists(targetPath) {
@@ -300,7 +297,7 @@ function resolveGoplsCommand(homeDir, goVersion) {
 
 function buildScopedTempDir(rootDir, label) {
   const hash = crypto.createHash("sha1").update(rootDir).digest("hex").slice(0, 12);
-  const tempRoot = process.env.TMPDIR || "/tmp";
+  const tempRoot = process.env.TMPDIR || os.tmpdir();
   return path.join(tempRoot, "codex-gopls-mcp", hash, label);
 }
 
@@ -409,7 +406,7 @@ function parseGoReferences(raw) {
     .split(/\r?\n/)
     .filter(Boolean)
     .map((line) => {
-      const match = line.match(/^(.*?):(\d+):(\d+)-(\d+)$/);
+      const match = line.match(/^(.*):(\d+):(\d+)-(\d+)$/);
       if (!match) {
         return null;
       }
@@ -466,7 +463,7 @@ function parseGoWorkspaceSymbols(raw) {
     .split(/\r?\n/)
     .filter(Boolean)
     .map((line) => {
-      const match = line.match(/^(.*?):(\d+):(\d+)-(\d+)\s+(\S+)\s+(\w+)$/);
+      const match = line.match(/^(.*):(\d+):(\d+)-(\d+)\s+(\S+)\s+(\w+)$/);
       if (!match) {
         return null;
       }
@@ -500,7 +497,7 @@ function parseGoDiagnostics(raw, filePath) {
     .split(/\r?\n/)
     .filter(Boolean)
     .map((line) => {
-      const match = line.match(/^(.*?):(\d+):(\d+):\s*(.*)$/);
+      const match = line.match(/^(.*):(\d+):(\d+):\s*(.*)$/);
       if (!match) {
         return null;
       }

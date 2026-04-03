@@ -5,12 +5,14 @@
 ## Linked Issue
 
 - Closes #
+- If there is no linked issue, explain why this change is still small enough to review safely.
 
 ## Validation
 
 - [ ] `node --check server.js`
 - [ ] cross-platform smoke workflow passes
 - [ ] docs updated if setup, support status, or behavior changed
+- [ ] platform-related changes were tested in a real target environment or an equivalent CI runner
 
 ## Environment Notes
 
