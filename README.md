@@ -30,13 +30,20 @@ This repository does not provision the runtime for you. It expects the machine t
 Current support should be read conservatively:
 
 - macOS: primary development target
-- Linux: expected to work for the Node server path, with validation driven by CI
-- Windows native: not yet a first-class supported environment
+- Linux: core server path validated in CI
+- Windows native: core server path validated in CI, but helper scripts are still Unix-oriented
 - WSL: more realistic than native Windows today because the helper scripts are Unix-oriented
 
 Important limitation:
 
 - Docker on macOS or Linux is not a real substitute for native Windows validation. For Windows-specific behavior, use a real Windows VM or a Windows CI runner.
+
+CI policy:
+
+- smoke CI tracks the latest stable Go release
+- smoke CI installs `gopls@latest`
+- a scheduled workflow reruns the same matrix so upstream Go or `gopls` changes are noticed early
+- older Go versions are not a compatibility target for this repository unless documented otherwise
 
 ## Install Prerequisites
 
@@ -177,6 +184,7 @@ If you want it, install `nomicfoundation-solidity-language-server` on `PATH` or 
 - `activate-global-lsp.sh` installs the bundled skill from `./skills/use-lsp-when-coding/SKILL.md` by default. You can override that with `SKILL_SOURCE`.
 - The defaults in this repository reflect one macOS workstation setup. If your machine differs, prefer overriding environment variables instead of patching the server.
 - If a required Go version is not installed locally, results depend on the fallback environment that `gopls` can reach on that machine.
+- This repository follows current `gopls` releases rather than pinning an older long-lived `gopls` build for CI.
 
 ## Contributing
 

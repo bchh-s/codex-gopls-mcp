@@ -48,6 +48,13 @@ PRs should:
 
 At minimum, keep the cross-platform smoke workflow green.
 
+The smoke workflow intentionally tracks:
+
+- the latest stable Go release
+- `gopls@latest`
+
+This repository does not treat older Go versions as a standing compatibility promise unless that is explicitly documented.
+
 For Windows-related work:
 
 - CI on a Windows runner is expected
