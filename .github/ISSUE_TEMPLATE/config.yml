@@ -1,5 +1,0 @@
-blank_issues_enabled: false
-contact_links:
-  - name: Contribution guide
-    url: https://github.com/bchh-s/codex-gopls-mcp/blob/main/CONTRIBUTING.md
-    about: Read the contribution guide before filing platform support or compatibility issues.

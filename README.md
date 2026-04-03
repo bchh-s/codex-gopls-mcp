@@ -186,16 +186,6 @@ If you want it, install `nomicfoundation-solidity-language-server` on `PATH` or 
 - If a required Go version is not installed locally, results depend on the fallback environment that `gopls` can reach on that machine.
 - This repository follows current `gopls` releases rather than pinning an older long-lived `gopls` build for CI.
 
-## Contributing
-
-If you want to send patches, read [CONTRIBUTING.md](./CONTRIBUTING.md) first.
-
-In particular:
-
-- open an issue first for platform support work, non-trivial behavior changes, or compatibility claims
-- include exact OS, shell, Go, `gopls`, and Node.js versions in bug reports
-- treat Windows support as tracked work until it is validated in CI and on a real Windows environment
-
 ## Bundled Skill
 
 This repository includes a Codex skill for Go and Solidity code navigation:
