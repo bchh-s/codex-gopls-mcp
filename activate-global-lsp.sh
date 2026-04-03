@@ -4,9 +4,14 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "$0")" && pwd)"
 CODEX_HOME="$HOME/.codex"
 CONFIG_FILE="$CODEX_HOME/config.toml"
-SKILL_SOURCE="${SKILL_SOURCE:-$CODEX_HOME/memories/use-lsp-when-coding/SKILL.md}"
+SKILL_SOURCE="${SKILL_SOURCE:-$ROOT_DIR/skills/use-lsp-when-coding/SKILL.md}"
 SKILL_TARGET_DIR="$CODEX_HOME/skills/use-lsp-when-coding"
 TMP_CONFIG="$(mktemp)"
+
+if [[ ! -f "$SKILL_SOURCE" ]]; then
+  echo "missing skill source: $SKILL_SOURCE" >&2
+  exit 1
+fi
 
 mkdir -p "$SKILL_TARGET_DIR"
 cp "$SKILL_SOURCE" "$SKILL_TARGET_DIR/SKILL.md"
