@@ -2,7 +2,7 @@
 
 MCP server for Codex with `gopls`-backed Go code navigation.
 
-This repository is aimed at a macOS workstation where Go, `gopls`, Node.js, and optionally GVM are already installed. The Go path is the primary target. Solidity support is still present, but it is secondary.
+This repository started from a macOS workstation setup where Go, `gopls`, Node.js, and optionally GVM are already installed. The Go path is the primary target. Solidity support is still present, but it is secondary.
 
 ## What It Exposes
 
@@ -24,6 +24,26 @@ This repository is aimed at a macOS workstation where Go, `gopls`, Node.js, and 
 - GVM is optional, but this repo is friendliest to GVM-based Go setups
 
 This repository does not provision the runtime for you. It expects the machine to already have the required tooling.
+
+## Support Status
+
+Current support should be read conservatively:
+
+- macOS: primary development target
+- Linux: core server path validated in CI
+- Windows native: core server path validated in CI, but helper scripts are still Unix-oriented
+- WSL: more realistic than native Windows today because the helper scripts are Unix-oriented
+
+Important limitation:
+
+- Docker on macOS or Linux is not a real substitute for native Windows validation. For Windows-specific behavior, use a real Windows VM or a Windows CI runner.
+
+CI policy:
+
+- smoke CI tracks the latest stable Go release
+- smoke CI installs `gopls@latest`
+- a scheduled workflow reruns the same matrix so upstream Go or `gopls` changes are noticed early
+- older Go versions are not a compatibility target for this repository unless documented otherwise
 
 ## Install Prerequisites
 
@@ -164,6 +184,7 @@ If you want it, install `nomicfoundation-solidity-language-server` on `PATH` or 
 - `activate-global-lsp.sh` installs the bundled skill from `./skills/use-lsp-when-coding/SKILL.md` by default. You can override that with `SKILL_SOURCE`.
 - The defaults in this repository reflect one macOS workstation setup. If your machine differs, prefer overriding environment variables instead of patching the server.
 - If a required Go version is not installed locally, results depend on the fallback environment that `gopls` can reach on that machine.
+- This repository follows current `gopls` releases rather than pinning an older long-lived `gopls` build for CI.
 
 ## Bundled Skill
 
@@ -185,3 +206,5 @@ $HOME/.codex/skills/use-lsp-when-coding/SKILL.md
 - `gopls` site: https://go.dev/gopls/
 - Node.js downloads: https://nodejs.org/en/download
 - GVM upstream README: https://github.com/moovweb/gvm
+- GitHub Actions docs: https://docs.github.com/github/automating-your-workflow-with-github-actions
+- Docker docs: https://docs.docker.com/
